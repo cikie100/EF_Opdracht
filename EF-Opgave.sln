@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{B134A180-8C65-4517-B78D-434A675DB95E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueApp", "ConsoleApp\LeagueApp.csproj", "{48C6423C-E3F2-4F8A-832F-A760643BAC6F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B134A180-8C65-4517-B78D-434A675DB95E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B134A180-8C65-4517-B78D-434A675DB95E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B134A180-8C65-4517-B78D-434A675DB95E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B134A180-8C65-4517-B78D-434A675DB95E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48C6423C-E3F2-4F8A-832F-A760643BAC6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48C6423C-E3F2-4F8A-832F-A760643BAC6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48C6423C-E3F2-4F8A-832F-A760643BAC6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48C6423C-E3F2-4F8A-832F-A760643BAC6F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {113C2503-D192-4174-8832-258BCDBDC238}
+	EndGlobalSection
+EndGlobal
