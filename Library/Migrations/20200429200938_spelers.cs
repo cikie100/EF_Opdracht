@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace LeagueApp.Migrations
+namespace Library.Migrations
 {
-    public partial class teams : Migration
+    public partial class spelers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

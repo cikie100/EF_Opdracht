@@ -1,5 +1,4 @@
-﻿using LeagueApp;
-using Library.Objects;
+﻿using Library.Objects;
 using System.Linq;
 
 namespace Library
@@ -10,13 +9,18 @@ namespace Library
 
         //toevoegen
         public void VoegSpelerToe(Speler speler) {
-            ctx.spelers.Add(speler);
-            ctx.SaveChanges();
+            //using (var transaction = ctx.Database.BeginTransaction())
+            //{
+           //     ctx.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.teams ON");
+                ctx.spelers.Add(speler);
+                ctx.SaveChanges();
+            //}
         }
         public void VoegTeamToe(Team team) {
             ctx.teams.Add(team);
             ctx.SaveChanges();
-        }
+                  }
+
         public void VoegTransferToe(Transfer transfer) {
             ctx.transfers.Add(transfer);
             ctx.SaveChanges();

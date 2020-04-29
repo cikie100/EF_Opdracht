@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace LeagueApp.Migrations
+namespace Library.Migrations
 {
-    public partial class spelers : Migration
+    public partial class teams : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,8 +10,7 @@ namespace LeagueApp.Migrations
                 name: "teams",
                 columns: table => new
                 {
-                    stamnummer = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    stamnummer = table.Column<int>(nullable: false),
                     naamTrainer = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -49,7 +48,7 @@ namespace LeagueApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     spelerID = table.Column<int>(nullable: false),
                     transferPrijs = table.Column<int>(nullable: false),
-                    oude_teamID = table.Column<int>(nullable: false),
+                    oude_teamstamnummer = table.Column<int>(nullable: true),
                     nieuwe_teamID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -62,11 +61,11 @@ namespace LeagueApp.Migrations
                         principalColumn: "stamnummer",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_transfers_teams_oude_teamID",
-                        column: x => x.oude_teamID,
+                        name: "FK_transfers_teams_oude_teamstamnummer",
+                        column: x => x.oude_teamstamnummer,
                         principalTable: "teams",
                         principalColumn: "stamnummer",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_transfers_spelers_spelerID",
                         column: x => x.spelerID,
@@ -86,9 +85,9 @@ namespace LeagueApp.Migrations
                 column: "nieuwe_teamID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_transfers_oude_teamID",
+                name: "IX_transfers_oude_teamstamnummer",
                 table: "transfers",
-                column: "oude_teamID");
+                column: "oude_teamstamnummer");
 
             migrationBuilder.CreateIndex(
                 name: "IX_transfers_spelerID",

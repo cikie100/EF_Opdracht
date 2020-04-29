@@ -11,7 +11,7 @@ namespace Library.Objects
         public int spelerID { get; set; }
         public int transferPrijs { get; set; }
         public Team oude_team { get; set; }
-        public int oude_teamID { get; set; }
+
         public Team nieuwe_team { get; set; }
         public int nieuwe_teamID { get; set; }
 
@@ -23,11 +23,10 @@ namespace Library.Objects
             this.nieuwe_team = nieuwe_team;
         }
 
-        public Transfer(int spelerID, int transferPrijs, int oude_teamID, int nieuwe_teamID)
+        public Transfer(int spelerID, int transferPrijs, int nieuwe_teamID)
         {
             this.spelerID = spelerID;
             this.transferPrijs = transferPrijs;
-            this.oude_teamID = oude_teamID;
             this.nieuwe_teamID = nieuwe_teamID;
         }
     }

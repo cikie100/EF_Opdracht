@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace LeagueApp.Migrations
+namespace Library.Migrations
 {
     public partial class transfers : Migration
     {

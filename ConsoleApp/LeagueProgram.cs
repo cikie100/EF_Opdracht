@@ -7,10 +7,13 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            
             DatabankInitialiseer db = new DatabankInitialiseer();
-            db.InitialiseerDatabank();
 
+            // databank vullen met de csv.
+            // db.InitialiseerDatabank();
+
+         
             Console.ReadLine();
         }
     }
