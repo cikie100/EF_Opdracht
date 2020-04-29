@@ -1,8 +1,5 @@
-﻿
-
-
-using Microsoft.EntityFrameworkCore;
-using Model.Objects;
+﻿using Microsoft.EntityFrameworkCore;
+using Library.Objects;
 
 namespace LeagueApp
 {

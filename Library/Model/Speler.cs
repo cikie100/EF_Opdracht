@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Model.Objects
+namespace Library.Objects
 {
     public class Speler
     {

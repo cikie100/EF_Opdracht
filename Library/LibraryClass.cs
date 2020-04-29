@@ -1,16 +1,17 @@
-﻿
+﻿using Library.Objects;
+
 namespace Library
 {
     public class LibraryClass 
     {
-        ////toevoegen
-        //public void VoegSpelerToe(Speler speler) { }
-        //public void VoegTeamToe(Team team) { }
-        //public void VoegTransferToe(Transfer transfer) { }
+        //toevoegen
+        public void VoegSpelerToe(Speler speler) { }
+        public void VoegTeamToe(Team team) { }
+        public void VoegTransferToe(Transfer transfer) { }
 
-        ////updaten
-        //public void UpdateSpeler(Speler speler) { }
-        //public void UpdateTeam(Team team) { }
+        //updaten
+        public void UpdateSpeler(Speler speler) { }
+        public void UpdateTeam(Team team) { }
 
         //selecteren
         //public Speler SelecteerSpeler(int spelerID) { }
