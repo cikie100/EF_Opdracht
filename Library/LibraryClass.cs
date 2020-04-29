@@ -1,21 +1,44 @@
-﻿using Library.Objects;
+﻿using LeagueApp;
+using Library.Objects;
+using System.Linq;
 
 namespace Library
 {
     public class LibraryClass 
     {
-        //toevoegen
-        public void VoegSpelerToe(Speler speler) { }
-        public void VoegTeamToe(Team team) { }
-        public void VoegTransferToe(Transfer transfer) { }
+        private VoetbalContext ctx = new VoetbalContext();
 
-        //updaten
+        //toevoegen
+        public void VoegSpelerToe(Speler speler) {
+            ctx.spelers.Add(speler);
+            ctx.SaveChanges();
+        }
+        public void VoegTeamToe(Team team) {
+            ctx.teams.Add(team);
+            ctx.SaveChanges();
+        }
+        public void VoegTransferToe(Transfer transfer) {
+            ctx.transfers.Add(transfer);
+            ctx.SaveChanges();
+        }
+
+        //updaten ?
         public void UpdateSpeler(Speler speler) { }
         public void UpdateTeam(Team team) { }
 
         //selecteren
-        //public Speler SelecteerSpeler(int spelerID) { }
-        //public Team SelecteerTeam(int stamnummer) { }
-        //public Transfer SelecteerTransfer(int transferID) { }
+        public Speler SelecteerSpeler(int spelerID) {
+            Speler speler = ctx.spelers.Single(s => s.spelerid == spelerID);
+            return speler;
+
+        }
+        public Team SelecteerTeam(int stamnummer) {
+            Team team = ctx.teams.Single(s => s.stamnummer == stamnummer);
+            return team;
+        }
+        public Transfer SelecteerTransfer(int transferID) {
+            Transfer transfer = ctx.transfers.Single(s => s.transferid == transferID);
+            return transfer;
+        }
     }
 }
