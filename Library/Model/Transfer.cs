@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,6 +7,7 @@ namespace Library.Objects
 {
     public class Transfer
     {
+        #region prop
         public int transferid { get; set; }
         public Speler speler { get; set; }
         public int spelerID { get; set; }
@@ -14,6 +16,8 @@ namespace Library.Objects
 
         public Team nieuwe_team { get; set; }
         public int nieuwe_teamID { get; set; }
+
+        #endregion
 
         public Transfer(Speler speler, int transferPrijs, Team nieuwe_team)
         {

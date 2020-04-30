@@ -1,11 +1,14 @@
 ﻿using Library.Objects;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace Library
 {
     public class LibraryClass 
     {
+
         private VoetbalContext ctx = new VoetbalContext();
+  
 
         //toevoegen
         public void VoegSpelerToe(Speler speler) {
@@ -27,12 +30,21 @@ namespace Library
         }
 
         //updaten ?
-        public void UpdateSpeler(Speler speler) { }
-        public void UpdateTeam(Team team) { }
+        /// <Volgensdeleerkracht>
+        /// "In de opgave wordt er enkel gevraagd om een speler op te vragen op basis van zijn ID. 
+        /// Ik weet niet in welke context het nodig is om een speler op te vragen als de id niet gekend is."
+        public void UpdateSpeler(Speler speler) {
+           
+        }
+       public void UpdateTeam(Team team) {
+           
+        }
 
         //selecteren
         public Speler SelecteerSpeler(int spelerID) {
-            Speler speler = ctx.spelers.Single(s => s.spelerid == spelerID);
+            Speler speler = ctx.spelers.Where(s => s.spelerid == spelerID).FirstOrDefault();
+          //  speler.team = SelecteerTeam(speler.teamId);
+
             return speler;
 
         }
@@ -43,6 +55,17 @@ namespace Library
         public Transfer SelecteerTransfer(int transferID) {
             Transfer transfer = ctx.transfers.Single(s => s.transferid == transferID);
             return transfer;
+        }
+
+        public void linkSpelerTeams() {
+
+            using (VoetbalContext ctxx = new VoetbalContext()) { 
+                foreach (Speler speler in ctxx.spelers)
+            {
+                speler.team = SelecteerTeam(speler.teamId);
+                ctx.Update(speler);
+            }
+            }
         }
     }
 }

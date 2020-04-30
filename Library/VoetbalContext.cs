@@ -1,4 +1,6 @@
-﻿using Library.Objects;
+﻿
+using Library.Model;
+using Library.Objects;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -21,7 +23,22 @@ namespace Library
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Team>().Property(a => a.stamnummer).ValueGeneratedNever();
+            //modelBuilder.Entity<Team>().Property(a => a.stamnummer).ValueGeneratedNever();
+            modelBuilder.Entity<SpelerTeam>().HasKey(x => new { x.spelerid, x.stamnummer });
+
+            modelBuilder.Entity<Team>()
+                .HasMany<Speler>(t => t.spelers)
+                .WithOne(s => s.team)
+                .HasForeignKey(s => s.teamId);
+
+            modelBuilder.Entity<Speler>()
+             .HasOne(a => a.team)
+             .WithMany(b => b.spelers)
+             .HasForeignKey(s => s.teamId);
+             ;
+
+
+
         }
     }
 }

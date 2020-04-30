@@ -11,6 +11,7 @@ namespace Library.Migrations
                 columns: table => new
                 {
                     stamnummer = table.Column<int>(nullable: false),
+                    naamClub = table.Column<string>(nullable: true),
                     naamTrainer = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -27,13 +28,38 @@ namespace Library.Migrations
                     naam = table.Column<string>(nullable: true),
                     rugnummer = table.Column<int>(nullable: false),
                     waarde = table.Column<int>(nullable: false),
-                    teamstamnummer = table.Column<int>(nullable: true)
+                    teamId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_spelers", x => x.spelerid);
                     table.ForeignKey(
-                        name: "FK_spelers_teams_teamstamnummer",
+                        name: "FK_spelers_teams_teamId",
+                        column: x => x.teamId,
+                        principalTable: "teams",
+                        principalColumn: "stamnummer",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SpelerTeam",
+                columns: table => new
+                {
+                    spelerid = table.Column<int>(nullable: false),
+                    stamnummer = table.Column<int>(nullable: false),
+                    teamstamnummer = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpelerTeam", x => new { x.spelerid, x.stamnummer });
+                    table.ForeignKey(
+                        name: "FK_SpelerTeam_spelers_spelerid",
+                        column: x => x.spelerid,
+                        principalTable: "spelers",
+                        principalColumn: "spelerid",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SpelerTeam_teams_teamstamnummer",
                         column: x => x.teamstamnummer,
                         principalTable: "teams",
                         principalColumn: "stamnummer",
@@ -71,12 +97,17 @@ namespace Library.Migrations
                         column: x => x.spelerID,
                         principalTable: "spelers",
                         principalColumn: "spelerid",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_spelers_teamstamnummer",
+                name: "IX_spelers_teamId",
                 table: "spelers",
+                column: "teamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SpelerTeam_teamstamnummer",
+                table: "SpelerTeam",
                 column: "teamstamnummer");
 
             migrationBuilder.CreateIndex(
@@ -97,6 +128,9 @@ namespace Library.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "SpelerTeam");
+
             migrationBuilder.DropTable(
                 name: "transfers");
 

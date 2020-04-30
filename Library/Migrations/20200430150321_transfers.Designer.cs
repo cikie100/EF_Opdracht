@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(VoetbalContext))]
-    [Migration("20200429200918_teams")]
-    partial class teams
+    [Migration("20200430150321_transfers")]
+    partial class transfers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,24 @@ namespace Library.Migrations
                 .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Library.Model.SpelerTeam", b =>
+                {
+                    b.Property<int>("spelerid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("stamnummer")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("teamstamnummer")
+                        .HasColumnType("int");
+
+                    b.HasKey("spelerid", "stamnummer");
+
+                    b.HasIndex("teamstamnummer");
+
+                    b.ToTable("SpelerTeam");
+                });
 
             modelBuilder.Entity("Library.Objects.Speler", b =>
                 {
@@ -34,7 +52,7 @@ namespace Library.Migrations
                     b.Property<int>("rugnummer")
                         .HasColumnType("int");
 
-                    b.Property<int?>("teamstamnummer")
+                    b.Property<int>("teamId")
                         .HasColumnType("int");
 
                     b.Property<int>("waarde")
@@ -42,7 +60,7 @@ namespace Library.Migrations
 
                     b.HasKey("spelerid");
 
-                    b.HasIndex("teamstamnummer");
+                    b.HasIndex("teamId");
 
                     b.ToTable("spelers");
                 });
@@ -51,6 +69,9 @@ namespace Library.Migrations
                 {
                     b.Property<int>("stamnummer")
                         .HasColumnType("int");
+
+                    b.Property<string>("naamClub")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("naamTrainer")
                         .HasColumnType("nvarchar(max)");
@@ -90,11 +111,26 @@ namespace Library.Migrations
                     b.ToTable("transfers");
                 });
 
+            modelBuilder.Entity("Library.Model.SpelerTeam", b =>
+                {
+                    b.HasOne("Library.Objects.Speler", "speler")
+                        .WithMany("TeamsLink")
+                        .HasForeignKey("spelerid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Library.Objects.Team", "team")
+                        .WithMany("spelersLink")
+                        .HasForeignKey("teamstamnummer");
+                });
+
             modelBuilder.Entity("Library.Objects.Speler", b =>
                 {
                     b.HasOne("Library.Objects.Team", "team")
                         .WithMany("spelers")
-                        .HasForeignKey("teamstamnummer");
+                        .HasForeignKey("teamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Library.Objects.Transfer", b =>
