@@ -15,9 +15,6 @@ namespace Library
     {
         string path = @"D:\Users\ciki3\Desktop\SCHOOL 19-20\Prog3\EF opgave\EF-Opgave\foot.csv";
 
-        
-        
-
         public void InitialiseerDatabank()
         {
             Dictionary<String, Speler> spelerDict = new Dictionary<string, Speler>();
@@ -112,6 +109,8 @@ namespace Library
             }
 
 
+            LibraryClass voetbalLib = new LibraryClass();
+            voetbalLib.linkSpelerTeams();
 
 
         }

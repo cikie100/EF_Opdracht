@@ -14,23 +14,30 @@ namespace ConsoleApp
             // db.InitialiseerDatabank();
             #endregion
 
-            //Spelerid is gemaakt van de gegeven .csv bestand, heeft id's 9 tot 16 (8 spelers dus)
+            //Spelers gemaakt van de gegeven .csv bestand, heeft id's 9 tot 16 (8 spelers dus)
             //Bestaande stamnummers : 3, 7, 35
   
-
-
             LibraryClass voetbalLib = new LibraryClass();
-            //anders blijft speler geen team hebben en team geen spelers?
-            //de db.InitialiseerDatabank() context had die wel maar gaf die niet door?
-            voetbalLib.linkSpelerTeams();
-             
-            
-           // Console.WriteLine( voetbalLib.SelecteerSpeler(9).ToString());
-            Console.WriteLine(voetbalLib.SelecteerTeam(7).ToString());
 
 
+            //nu zijn er 9 spelers
+            #region spelerToevoegen test
+            // Speler spelerNieuw = new Speler("Luc Vervoort", 99, 4000000, 7);
+            // voetbalLib.VoegSpelerToe(spelerNieuw);
+            // Speler spelerNieuwGeselecteerd = voetbalLib.SelecteerSpeler(17);
+            #endregion
 
+            #region teamToevoegen Test
+            //Team nieuweTeam = new Team(16, "LeerkrachtenClub", "Tom VDW");
+            // voetbalLib.VoegTeamToe(nieuweTeam);
+            #endregion
 
+            #region TransferToevoegen
+            // Transfer trans = new Transfer(17, 50000000, 16);
+            // voetbalLib.VoegTransferToe(trans);
+
+            Transfer ToonTransfer = voetbalLib.SelecteerTransfer(1);
+            #endregion
 
 
             Console.ReadLine();

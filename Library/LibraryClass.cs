@@ -8,43 +8,64 @@ namespace Library
     {
 
         private VoetbalContext ctx = new VoetbalContext();
-  
+        public LibraryClass()
+        {
+            //geeft alle spelers hun team object
+            // anders blijft speler geen team hebben en team geen spelers?
+            //de originele db.InitialiseerDatabank() context had die wel maar gaf die niet door
+            linkSpelerTeams();
+        }
+
 
         //toevoegen
         public void VoegSpelerToe(Speler speler) {
-            //using (var transaction = ctx.Database.BeginTransaction())
-            //{
-           //     ctx.Database.ExecuteSqlRaw("SET IDENTITY_INSERT dbo.teams ON");
+                //geeft het een team object
+                UpdateSpeler(speler);
                 ctx.spelers.Add(speler);
+                
                 ctx.SaveChanges();
-            //}
         }
+
         public void VoegTeamToe(Team team) {
             ctx.teams.Add(team);
             ctx.SaveChanges();
                   }
 
         public void VoegTransferToe(Transfer transfer) {
+            
+            Speler speler = ctx.spelers.Where(s => s.spelerid == transfer.spelerID).FirstOrDefault();
+            //Geef speler object
+            transfer.speler = speler;
+            //Geef (oude) team object mee
+            transfer.oude_team = speler.team;
+
+            //Geef speler de nieuwe teamID
+            ctx.spelers.Where(s => s.spelerid == transfer.spelerID).FirstOrDefault().teamId = transfer.nieuwe_teamID;
+            UpdateSpeler(speler);
+            ////Geef (nieuwe) team object mee
+            transfer.nieuwe_team = speler.team;
+
+            //verwijder speler uit de oude team
+            ctx.teams.Where(t => t.stamnummer == transfer.oude_team.stamnummer).FirstOrDefault().spelers.Remove(speler);
+            //voeg speler toe aan de nieuwe team
+            ctx.teams.Where(t => t.stamnummer == transfer.nieuwe_team.stamnummer).FirstOrDefault().spelers.Add(speler);
+
             ctx.transfers.Add(transfer);
             ctx.SaveChanges();
         }
 
-        //updaten ?
-        /// <Volgensdeleerkracht>
-        /// "In de opgave wordt er enkel gevraagd om een speler op te vragen op basis van zijn ID. 
-        /// Ik weet niet in welke context het nodig is om een speler op te vragen als de id niet gekend is."
-        public void UpdateSpeler(Speler speler) {
-           
+        //updaten 
+       public void UpdateSpeler(Speler speler) {
+            //Geef speler team object
+            speler.team = SelecteerTeam(speler.teamId);
+            ctx.Update(speler);
         }
        public void UpdateTeam(Team team) {
-           
-        }
+                  }
 
         //selecteren
         public Speler SelecteerSpeler(int spelerID) {
             Speler speler = ctx.spelers.Where(s => s.spelerid == spelerID).FirstOrDefault();
-          //  speler.team = SelecteerTeam(speler.teamId);
-
             return speler;
 
         }
@@ -58,7 +79,7 @@ namespace Library
         }
 
         public void linkSpelerTeams() {
-
+            //geeft alle spelers hun team object
             using (VoetbalContext ctxx = new VoetbalContext()) { 
                 foreach (Speler speler in ctxx.spelers)
             {

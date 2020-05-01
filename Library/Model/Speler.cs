@@ -38,8 +38,9 @@ namespace Library.Objects
             this.naam = naam;
             this.rugnummer = rugnummer;
             this.waarde = waarde;
-            this.teamId = team.stamnummer;
+            
             this.team = team;
+            this.teamId = team.stamnummer;
         }
 
         public override string ToString()
